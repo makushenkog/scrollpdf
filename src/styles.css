@@ -1,0 +1,62 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #F3F0EC;
+    scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.backdrop {
+    opacity: 0;
+}
+
+.work-area {
+    border: 2px rgb(56, 62, 69) dashed;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 300px;
+    padding: 10px;
+    width: 100%;
+}
+
+.view-area {
+    background-color: black;
+    height: max-content;
+    width: 100%;
+    padding: 50px 0;
+}
+
+.main {
+    height: 100vh;
+}
+
+.view-container {
+    min-height: 1px;
+    margin-top: -1px;
+}
+
+.filename {
+    font-weight: 400;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 250px;
+}
+
+.filelist {
+    margin-top: 20px;
+    max-height: 220px;
+    overflow-y: scroll;
+}
+
+.filelist::-webkit-scrollbar {
+    display: initial;
+}

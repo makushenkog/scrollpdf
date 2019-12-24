@@ -1,0 +1,1 @@
+export const getFileExt = filename =>  filename.split('.').pop();

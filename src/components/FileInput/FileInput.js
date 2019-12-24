@@ -13,11 +13,11 @@ export default function FileInput(props) {
     uploadFiles(files);
   };
 
-  const fileInputText = files.length ? 'Add more files' : 'Choose files';
+  const fileInputText = files.length ? 'Добавить файлы' : 'Выбрать файлы';
 
   const checkFileSize = file => {
     if (file.size > maxSize) {
-      alert(`File ${file.name} is too big.\nThe maximum size is ${maxSize}kb.`);
+      alert(`Файл ${file.name} слишком большой.\nМаксимальный размер ${maxSize}kb.`);
       return false;
     }
     return true;

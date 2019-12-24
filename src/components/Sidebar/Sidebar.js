@@ -31,9 +31,9 @@ function Sidebar({params, setParams, initialParams}){
   };
 
   return <div className='sidebar'>
-    <h5 className='font-weight-bold sidebar-title mb-3'>Preferences</h5>
+    <h5 className='font-weight-bold sidebar-title mb-3'>Настройки</h5>
     <InputGroup className='mb-3'>
-      <InputGroupAddon addonType='prepend'>Max size</InputGroupAddon>
+      <InputGroupAddon addonType='prepend'>Макс. размер</InputGroupAddon>
       <Input addon
              style={inputStyles}
        name='maxFileSize'
@@ -43,11 +43,11 @@ function Sidebar({params, setParams, initialParams}){
        value={maxFileSize}
        onChange={onChangeParams}
       />
-      <InputGroupAddon addonType='append'>kB</InputGroupAddon>
+      <InputGroupAddon addonType='append'>кБ</InputGroupAddon>
     </InputGroup>
     <InputGroup className='mb-3'>
       <InputGroupAddon addonType='prepend'>
-        Scroll by
+        Прокручивать по
       </InputGroupAddon>
       <Input
        name='step'
@@ -60,7 +60,7 @@ function Sidebar({params, setParams, initialParams}){
       <InputGroupAddon addonType='append'>px</InputGroupAddon>
     </InputGroup>
     <InputGroup className='mb-4'>
-      <InputGroupAddon addonType='prepend'>Every</InputGroupAddon>
+      <InputGroupAddon addonType='prepend'>Каждые</InputGroupAddon>
       <Input
        name='time'
        type='number'
@@ -69,10 +69,10 @@ function Sidebar({params, setParams, initialParams}){
        value={time}
        onChange={onChangeParams}
       />
-      <InputGroupAddon addonType='append'>ms</InputGroupAddon>
+      <InputGroupAddon addonType='append'>мс</InputGroupAddon>
     </InputGroup>
     <div className='d-flex justify-content-center'>
-      <span className='text-muted'>Southern Federal University, 2019</span>
+      <span className='text-muted'>Южный Федеральный Университет, 2019</span>
     </div>
     <div className='d-flex justify-content-center'>
       <span className='text-muted'>makushenko@sfedu.ru</span>

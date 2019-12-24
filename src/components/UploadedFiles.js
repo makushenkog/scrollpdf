@@ -7,9 +7,9 @@ function Loading(props){
 
   switch (loaded) {
     case true:
-      return <>Loaded</>;
+      return <>Загружен</>;
     default:
-      return <>Not loaded</>;
+      return <>Не загружен</>;
   }
 }
 

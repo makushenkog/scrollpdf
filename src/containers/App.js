@@ -8,7 +8,7 @@ import Sidebar from '../components/Sidebar/Sidebar'
 import PDFView from '../components/PDFView/PDFView';
 import FileInput from '../components/FileInput/FileInput';
 import {useWindowEvent} from '../hooks';
-
+import {getFileExt} from '../utils';
 import '../styles.css';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -34,7 +34,7 @@ function PlayButton({files, initialScroll}) {
 }
 
 const initialParams = {
-  step: 1,    // px
+  step: 50,    // px
   time: 10,    // ms
   maxFileSize: 1500,   // kb
 };
@@ -104,7 +104,7 @@ function App(props) {
       key: _.uniqueId('file_'),
       name: file.name,
       base64: file.base64,
-      loaded: false,
+      loaded: _.includes(['jpg', 'jpeg', 'png'], getFileExt(file.name))
     }));
 
     setFiles(files => [

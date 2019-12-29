@@ -13,6 +13,17 @@ import '../styles.css';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
+let INTERVAL_ID = 0;
+
+const processScroll = (step, time) => {
+  INTERVAL_ID = setInterval(async () => {
+    window.scrollBy(0, step)
+  }, time);
+};
+
+const endScroll = () => {
+  clearInterval(INTERVAL_ID)
+};
 
 function PlayButton({files, initialScroll}) {
   const disabled = !_.every(files, file => file.loaded);
@@ -34,8 +45,8 @@ function PlayButton({files, initialScroll}) {
 }
 
 const initialParams = {
-  step: 50,    // px
-  time: 10,    // ms
+  step: 2,    // px
+  time: 20,    // ms
   maxFileSize: 1500,   // kb
 };
 
@@ -58,45 +69,43 @@ function App(props) {
   const [files, setFiles] = useState([]);
   const [params, setParams] = useState(initialParams);
   const [pages, setPages] = useState({});
-  const [scrollIntervalId, setScrollIntervalId] = useState(null);
+  const [isScroll, setIsScroll] = useState(false);
 
-  const processScroll = useCallback(() => {
-    const intervalId = setInterval(() => {
-      window.scrollBy(0, params.step)
-    }, params.time);
-    setScrollIntervalId(intervalId);
-  }, [scrollIntervalId]);
+  const maxHeight = Math.max(
+    document.body.scrollHeight,
+    document.body.offsetHeight,
+    document.documentElement.clientHeight,
+    document.documentElement.scrollHeight,
+    document.documentElement.offsetHeight
+  );
 
-  const endProcessScroll = useCallback(() => {
-    clearInterval(scrollIntervalId);
-    setScrollIntervalId(null);
-  }, [scrollIntervalId]);
-
-  const toggleScroll = useCallback(() => {
-    if (scrollIntervalId) {
-      endProcessScroll();
-    } else {
-      processScroll();
+  useEffect(() => {
+    if (isScroll) {
+      processScroll(params.step, params.time)
     }
-  }, [scrollIntervalId]);
+    return endScroll;
+  }, [isScroll]);
 
   useWindowEvent('keypress', e => {
-    if (scrollIntervalId) e.preventDefault();
+    if (files.length) e.preventDefault();
 
     if (e.keyCode === 32 && files.length) {
-      e.preventDefault();
-      toggleScroll();
+      setIsScroll(!isScroll);
+    }
+  });
+
+  useWindowEvent('scroll', e => {
+    if (maxHeight > window.innerHeight
+      && window.innerHeight + window.scrollY === maxHeight) {
+      endScroll();
+      window.scrollTo(0, window.innerHeight);
+      setTimeout(() => {processScroll(params.step, params.time)}, 1000);
     }
   });
 
   const initialScroll = (e) => {
     openFullscreen();
     setTimeout(() => {window.scrollTo(0, window.innerHeight)}, 1000);
-  };
-
-  const finishProcess = () => {
-    endProcessScroll();
-    window.scrollTo(0,0);
   };
 
   const uploadFiles = files => {
@@ -162,7 +171,6 @@ function App(props) {
         pages={pages}
         setPages={setPages}
         onFileLoaded={onFileLoaded}
-        finishProcess={finishProcess}
       />
     </div>
   </div>;

@@ -13,7 +13,7 @@ const range = n => {
 };
 
 
-const PDFView = ({files, onFileLoaded, pages, setPages, finishProcess}) => {
+const PDFView = ({files, onFileLoaded, pages, setPages}) => {
   const onDocumentLoadSuccess = ({numPages}, fileKey) => {
     setPages({...pages, [fileKey]: numPages});
     onFileLoaded(fileKey);
@@ -63,17 +63,6 @@ const PDFView = ({files, onFileLoaded, pages, setPages, finishProcess}) => {
 
         }) : null}
       </div>
-    </div>
-    <div className='d-flex justify-content-center'>
-      <span>
-      <a
-        className='text-muted'
-        style={{width: '30px', cursor: 'pointer'}}
-        onClick={finishProcess}
-      >
-        Наверх
-      </a>
-      </span>
     </div>
   </div>;
 };
